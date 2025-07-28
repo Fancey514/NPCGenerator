@@ -3,7 +3,7 @@ public class NPC {
     private String role;
     private String subRole;
     private int[] Strength = {0, 0, 0, 0, 0};
-    private int [] Speed = {0, 0, 0, 0, 0, 0};
+    private int[] Speed = {0, 0, 0, 0, 0, 0};
     private int[] Smarts = {0, 0, 0, 0, 0};
     private int[] Social = {0, 0, 0, 0, 0};
     int HP, level;
