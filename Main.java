@@ -980,33 +980,53 @@ public class Main extends Application {
                     else {
                         writeMig = diceSetter(statTemp);
                     }
+                    writeSpeedStat = speedStats[0] + speedStats[1] + speedStats[2] + speedStats[3] + speedStats[4] + speedStats[5];
+                    writeEvasion = writeSpeedStat + 10;
+                    statTemp = speedStats[0];
+                    if (statTemp == 0) {
+                        writeAcro = "N/A";
+                    }
+                    else {
+                        writeAcro = diceSetter(statTemp);
+                    }
+                    statTemp = speedStats[1];
+                    if (statTemp == 0) {
+                        writeDriv = "N/A";
+                    }
+                    else {
+                        writeDriv = diceSetter(statTemp);
+                    }
+                    statTemp = speedStats[2];
+                    if (statTemp == 0) {
+                        writeFin = "N/A";
+                    }
+                    else {
+                        writeFin = diceSetter(statTemp);
+                    }
+                    statTemp = speedStats[3];
+                    if (statTemp == 0) {
+                        writeInf = "N/A";
+                    }
+                    else {
+                        writeInf = diceSetter(statTemp);
+                    }
+                    statTemp = speedStats[4];
+                    if (statTemp == 0) {
+                        writeInit = "N/A";
+                    }
+                    else {
+                        writeInit = diceSetter(statTemp);
+                    }
+                    statTemp = speedStats[5];
+                    if (statTemp == 0) {
+                        writeTarg = "N/A";
+                    }
+                    else {
+                        writeTarg = diceSetter(statTemp);
+                    }
+                    writeSmartsStat = smartsStats[0] + smartsStats[1] + smartsStats[2] + smartsStats[3] + smartsStats[4];
+                    writeWillpower = writeSmartsStat + 10;
                     // TODO: Continue here
-                    temp = speedStats[0] + speedStats[1] + speedStats[2] + speedStats[3] + speedStats[4] + speedStats[5];
-                    speedField.setText(String.valueOf(temp));
-                    temp += 10;
-                    evaField.setText(String.valueOf(temp));
-                    temp = speedStats[0];
-                    diceTemp = diceSetter(temp);
-                    acroField.setText(diceTemp);
-                    temp = speedStats[1];
-                    diceTemp = diceSetter(temp);
-                    drivField.setText(diceTemp);
-                    temp = speedStats[2];
-                    diceTemp = diceSetter(temp);
-                    finField.setText(diceTemp);
-                    temp = speedStats[3];
-                    diceTemp = diceSetter(temp);
-                    infField.setText(diceTemp);
-                    temp = speedStats[4];
-                    diceTemp = diceSetter(temp);
-                    initField.setText(diceTemp);
-                    temp = speedStats[5];
-                    diceTemp = diceSetter(temp);
-                    targField.setText(diceTemp);
-                    temp = smartsStats[0] + smartsStats[1] + smartsStats[2] + smartsStats[3] + smartsStats[4];
-                    smartsField.setText(String.valueOf(temp));
-                    temp += 10;
-                    willpowField.setText(String.valueOf(temp));
                     temp = smartsStats[0];
                     diceTemp = diceSetter(temp);
                     alerField.setText(diceTemp);
