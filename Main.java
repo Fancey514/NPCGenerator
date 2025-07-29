@@ -950,7 +950,7 @@ public class Main extends Application {
                     writeSmarts = newNPC.getSmarts();
                     writeSocial = newNPC.getSocial();
                     writeStrengthStat = writeStrength[0] + writeStrength[1] + writeStrength[2] + writeStrength[3] + writeStrength[4];
-                    writeDefense = writeStrengthStat + 10;
+                    writeToughness = writeStrengthStat + 10;
                     statTemp = strengthStats[0];
                     if (statTemp == 0) {
                         writeAth = "N/A";
@@ -1098,10 +1098,19 @@ public class Main extends Application {
                     else {
                         writeStre = diceSetter(statTemp);
                     }
-                    // TODO: Convert to String
-                    // TODO: Continue Here
-                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s", writeOrigin, writeRole, writeSubRole, writeHP, writeLevel,)
+                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s, Strength: %s, 
+                        Toughness: %s, Athletics: %s, Brawn: %s, Conditioning: %s, Intimidation: %s, Might: %s, 
+                        Speed: %s, Evasion: %s, Acrobatics: %s, Driving: %S, Finesse: %s, Infiltration: %s, 
+                        Initiative: %s, Targeting: %s, Smarts: %s, Willpower: %s, Alertness: %s, Culture: %s, 
+                        Science: %s, Survival: %s, Technology: %s, Social: %s, Cleverness: %s, Animal Handling: %s, 
+                        Deception: %s, Performance: %s, Persuasion: %s, Streetwise: %s", writeOrigin, writeRole, 
+                        writeSubRole, writeHP, writeLevel, writeStrengthStat, writeToughness, writeAth, writeBraw, 
+                        writeCond, writeInt, writeMig, writeSpeedStat, writeEvasion, writeAcro, writeDriv, writeFin, 
+                        writeInf, writeInit, writeTarg, writeSmartsStat, writeWillpower, writeAlert, writeCul, writeSci, 
+                        writeSur, writeTech, writeSocialStat, writeCleverness, writeAniHand, writeDec, writePerf, 
+                        writePers, writeStre)
                     // TODO: Add to queue
+                    // TODO: Continue Here
                     */
                 }
 
