@@ -1026,42 +1026,81 @@ public class Main extends Application {
                     }
                     writeSmartsStat = smartsStats[0] + smartsStats[1] + smartsStats[2] + smartsStats[3] + smartsStats[4];
                     writeWillpower = writeSmartsStat + 10;
-                    // TODO: Continue here
-                    temp = smartsStats[0];
-                    diceTemp = diceSetter(temp);
-                    alerField.setText(diceTemp);
-                    temp = smartsStats[1];
-                    diceTemp = diceSetter(temp);
-                    culField.setText(diceTemp);
-                    temp = smartsStats[2];
-                    diceTemp = diceSetter(temp);
-                    sciField.setText(diceTemp);
-                    temp = smartsStats[3];
-                    diceTemp = diceSetter(temp);
-                    surField.setText(diceTemp);
-                    temp = smartsStats[4];
-                    diceTemp = diceSetter(temp);
-                    techField.setText(diceTemp);
-                    temp = socialStats[0] + socialStats[1] + socialStats[2] + socialStats[3] + socialStats[4];
-                    socialField.setText(String.valueOf(temp));
-                    temp += 10;
-                    clevField.setText(String.valueOf(temp));
-                    temp = socialStats[0];
-                    diceTemp = diceSetter(temp);
-                    anHandField.setText(diceTemp);
-                    temp = socialStats[1];
-                    diceTemp = diceSetter(temp);
-                    decField.setText(diceTemp);
-                    temp = socialStats[2];
-                    diceTemp = diceSetter(temp);
-                    perfField.setText(diceTemp);
-                    temp = socialStats[3];
-                    diceTemp = diceSetter(temp);
-                    persField.setText(diceTemp);
-                    temp = socialStats[4];
-                    diceTemp = diceSetter(temp);
-                    streField.setText(diceTemp);
+                    statTemp = smartsStats[0];
+                    if (statTemp == 0) {
+                        writeAlert = "N/A";
+                    }
+                    else {
+                        writeAlert = diceSetter(statTemp);
+                    }
+                    statTemp = smartsStats[1];
+                    if (statTemp == 0) {
+                        writeCul = "N/A";
+                    }
+                    else {
+                        writeCul = diceSetter(statTemp);
+                    }
+                    statTemp = smartsStats[2];
+                    if (statTemp == 0) {
+                        writeSci = "N/A";
+                    }
+                    else {
+                        writeSci = diceSetter(statTemp);
+                    }
+                    statTemp = smartsStats[3];
+                    if (statTemp == 0) {
+                        writeSur = "N/A";
+                    }
+                    else {
+                        writeSur = diceSetter(statTemp);
+                    }
+                    statTemp = smartsStats[4];
+                    if (statTemp == 0) {
+                        writeTech = "N/A";
+                    }
+                    else {
+                        writeTech = diceSetter(statTemp);
+                    }
+                    writeSocialStat = socialStats[0] + socialStats[1] + socialStats[2] + socialStats[3] + socialStats[4];
+                    writeCleverness = writeSocialStat + 10;
+                    statTemp = socialStats[0];
+                    if (statTemp == 0) {
+                        writeAniHand = "N/A";
+                    }
+                    else {
+                        writeAniHand = diceSetter(statTemp);
+                    }
+                    statTemp = socialStats[1];
+                    if (statTemp == 0) {
+                        writeDec = "N/A";
+                    }
+                    else {
+                        writeDec = diceSetter(statTemp);
+                    }
+                    statTemp = socialStats[2];
+                    if (statTemp == 0) {
+                        writePerf = "N/A";
+                    }
+                    else {
+                        writePerf = diceSetter(statTemp);
+                    }
+                    statTemp = socialStats[3];
+                    if (statTemp == 0) {
+                        writePers = "N/A";
+                    }
+                    else {
+                        writePers = diceSetter(statTemp);
+                    }
+                    statTemp = socialStats[4];
+                    if (statTemp == 0) {
+                        writeStre = "N/A";
+                    }
+                    else {
+                        writeStre = diceSetter(statTemp);
+                    }
                     // TODO: Convert to String
+                    // TODO: Continue Here
+                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s", writeOrigin, writeRole, writeSubRole, writeHP, writeLevel,)
                     // TODO: Add to queue
                     */
                 }
