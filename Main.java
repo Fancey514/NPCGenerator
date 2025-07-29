@@ -940,15 +940,16 @@ public class Main extends Application {
                     NPC StringNPC = new NPC();
                     StringNPC = NPCLinkedList.getNextItem();
                     /*
-                    writeOrigin = newNPC.getOrigin();
-                    writeRole = newNPC.getRole();
-                    writeSubRole = newNPC.getSubRole();
-                    writeHP = newNPC.getHP();
-                    writeLevel = newNPC.getLevel();
-                    writeStrength = newNPC.getStrength();
-                    writeSpeed = newNPC.getSpeed();
-                    writeSmarts = newNPC.getSmarts();
-                    writeSocial = newNPC.getSocial();
+                    writeOrigin = StringNPC.getOrigin();
+                    writeRole = StringNPC.getRole();
+                    writeSubRole = StringNPC.getSubRole();
+                    writeHP = StringNPC.getHP();
+                    writeLevel = StringNPC.getLevel();
+                    writeStrength = StringNPC.getStrength();
+                    writeSpeed = StringNPC.getSpeed();
+                    writeSmarts = StringNPC.getSmarts();
+                    writeSocial = StringNPC.getSocial();
+                    
                     writeStrengthStat = writeStrength[0] + writeStrength[1] + writeStrength[2] + writeStrength[3] + writeStrength[4];
                     writeToughness = writeStrengthStat + 10;
                     statTemp = strengthStats[0];
