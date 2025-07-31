@@ -409,6 +409,54 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    public void clearList() {
+        NPCLinkedList.resetList();
+        while (!NPCLinkedList.isEmpty()) {
+            NPCLinkedList.removeAt(0);
+        }
+        hpField.setText("");
+        levelField.setText("");
+        originField.setText("");
+        roleField.setText("");
+        subRoleField.setText("");
+        strengthField.setText("");
+        toughField.setText("");
+        athField.setText("");
+        brawField.setText("");
+        condField.setText("");
+        intField.setText("");
+        migField.setText("");
+        speedField.setText("");
+        evaField.setText("");
+        acroField.setText("");
+        drivField.setText("");
+        finField.setText("");
+        infField.setText("");
+        initField.setText("");
+        targField.setText("");
+        smartsField.setText("");
+        willpowField.setText("");
+        alerField.setText("");
+        culField.setText("");
+        sciField.setText("");
+        surField.setText("");
+        techField.setText("");
+        socialField.setText("");
+        clevField.setText("");
+        anHandField.setText("");
+        decField.setText("");
+        perfField.setText("");
+        persField.setText("");
+        streField.setText("");
+        currentLabel.setText("");
+        previous.setDisable(true);
+        next.setDisable(true);
+        clear.setDisable(true);
+        writeToFile.setDisable(true);
+        totalBot = 0;
+        NPCLinkedList.resetList();
+    }
+
     class GenerateNPCsClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
@@ -863,51 +911,7 @@ public class Main extends Application {
     class ClearClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
-            NPCLinkedList.resetList();
-            while (!NPCLinkedList.isEmpty()) {
-                NPCLinkedList.removeAt(0);
-            }
-            hpField.setText("");
-            levelField.setText("");
-            originField.setText("");
-            roleField.setText("");
-            subRoleField.setText("");
-            strengthField.setText("");
-            toughField.setText("");
-            athField.setText("");
-            brawField.setText("");
-            condField.setText("");
-            intField.setText("");
-            migField.setText("");
-            speedField.setText("");
-            evaField.setText("");
-            acroField.setText("");
-            drivField.setText("");
-            finField.setText("");
-            infField.setText("");
-            initField.setText("");
-            targField.setText("");
-            smartsField.setText("");
-            willpowField.setText("");
-            alerField.setText("");
-            culField.setText("");
-            sciField.setText("");
-            surField.setText("");
-            techField.setText("");
-            socialField.setText("");
-            clevField.setText("");
-            anHandField.setText("");
-            decField.setText("");
-            perfField.setText("");
-            persField.setText("");
-            streField.setText("");
-            currentLabel.setText("");
-            previous.setDisable(true);
-            next.setDisable(true);
-            clear.setDisable(true);
-            writeToFile.setDisable(true);
-            totalBot = 0;
-            NPCLinkedList.resetList();
+            clearList();
         }
     }
 
@@ -915,12 +919,14 @@ public class Main extends Application {
         @Override
         public void handle(ActionEvent clicked) {
             try {
-                String tempString, inputString, writeOrigin, writeRole, writeSubRole,
-                        writeStrengthStat, writeSpeedStat, writeSmartsStat, writeSocialStat,
-                        writeToughness, writeEvasion, writeWillpower, writeCleverness, writeAth,
-                        writeBraw;
+                String tempString, inputString, writeOrigin, writeRole, writeSubRole, writeAth, writeBraw, writeAcro,
+                        writeDriv, writeFin, writeInf, writeInit, writeTarg, writeAlert, writeCul, writeSci, writeSur,
+                        writeTech, writeCond, writeInt, writeMig, writeAniHand, writeDec, writePerf, writePers,
+                        writeStre;
                 int[] writeStrength, writeSpeed, writeSmarts, writeSocial;
-                int queueTotal = 0, writeHP, writeLevel, statTemp;
+                int queueTotal = 0, writeHP, writeLevel, statTemp, writeStrengthStat, writeSpeedStat,
+                        writeSmartsStat, writeSocialStat, writeToughness, writeEvasion,
+                        writeWillpower, writeCleverness;
                 NPCQueue<String> writeQueue = new NPCQueue<String>();
                 // Open file and declare Scanner
                 File file = new File("GeneratedNPCs.txt");
@@ -935,11 +941,10 @@ public class Main extends Application {
                     }
                     queueTotal += readIn;
                 }
-                // TODO: Pull NPCs from Linked List, convert to String, add to Queue
+
                 while (!NPCLinkedList.atEnd()) {
                     NPC StringNPC = new NPC();
                     StringNPC = NPCLinkedList.getNextItem();
-                    /*
                     writeOrigin = StringNPC.getOrigin();
                     writeRole = StringNPC.getRole();
                     writeSubRole = StringNPC.getSubRole();
@@ -952,167 +957,167 @@ public class Main extends Application {
                     
                     writeStrengthStat = writeStrength[0] + writeStrength[1] + writeStrength[2] + writeStrength[3] + writeStrength[4];
                     writeToughness = writeStrengthStat + 10;
-                    statTemp = strengthStats[0];
+                    statTemp = writeStrength[0];
                     if (statTemp == 0) {
                         writeAth = "N/A";
                     }
                     else {
                         writeAth = diceSetter(statTemp);
                     }
-                    statTemp = strengthStats[1];
+                    statTemp = writeStrength[1];
                     if (statTemp == 0) {
                         writeBraw = "N/A";
                     }
                     else {
                         writeBraw = diceSetter(statTemp);
                     }
-                    writeCond = "+" + strengthStats[2] + "HP";
-                    statTemp = strengthStats[3];
+                    writeCond = "+" + writeStrength[2] + "HP";
+                    statTemp = writeStrength[3];
                     if (statTemp == 0) {
                         writeInt = "N/A";
                     }
                     else {
                         writeInt = diceSetter(statTemp);
                     }
-                    statTemp = strengthStats[4];
+                    statTemp = writeStrength[4];
                     if (statTemp == 0) {
                         writeMig = "N/A";
                     }
                     else {
                         writeMig = diceSetter(statTemp);
                     }
-                    writeSpeedStat = speedStats[0] + speedStats[1] + speedStats[2] + speedStats[3] + speedStats[4] + speedStats[5];
+                    writeSpeedStat = writeSpeed[0] + writeSpeed[1] + writeSpeed[2] + writeSpeed[3] + writeSpeed[4] + writeSpeed[5];
                     writeEvasion = writeSpeedStat + 10;
-                    statTemp = speedStats[0];
+                    statTemp = writeSpeed[0];
                     if (statTemp == 0) {
                         writeAcro = "N/A";
                     }
                     else {
                         writeAcro = diceSetter(statTemp);
                     }
-                    statTemp = speedStats[1];
+                    statTemp = writeSpeed[1];
                     if (statTemp == 0) {
                         writeDriv = "N/A";
                     }
                     else {
                         writeDriv = diceSetter(statTemp);
                     }
-                    statTemp = speedStats[2];
+                    statTemp = writeSpeed[2];
                     if (statTemp == 0) {
                         writeFin = "N/A";
                     }
                     else {
                         writeFin = diceSetter(statTemp);
                     }
-                    statTemp = speedStats[3];
+                    statTemp = writeSpeed[3];
                     if (statTemp == 0) {
                         writeInf = "N/A";
                     }
                     else {
                         writeInf = diceSetter(statTemp);
                     }
-                    statTemp = speedStats[4];
+                    statTemp = writeSpeed[4];
                     if (statTemp == 0) {
                         writeInit = "N/A";
                     }
                     else {
                         writeInit = diceSetter(statTemp);
                     }
-                    statTemp = speedStats[5];
+                    statTemp = writeSpeed[5];
                     if (statTemp == 0) {
                         writeTarg = "N/A";
                     }
                     else {
                         writeTarg = diceSetter(statTemp);
                     }
-                    writeSmartsStat = smartsStats[0] + smartsStats[1] + smartsStats[2] + smartsStats[3] + smartsStats[4];
+                    writeSmartsStat = writeSmarts[0] + writeSmarts[1] + writeSmarts[2] + writeSmarts[3] + writeSmarts[4];
                     writeWillpower = writeSmartsStat + 10;
-                    statTemp = smartsStats[0];
+                    statTemp = writeSmarts[0];
                     if (statTemp == 0) {
                         writeAlert = "N/A";
                     }
                     else {
                         writeAlert = diceSetter(statTemp);
                     }
-                    statTemp = smartsStats[1];
+                    statTemp = writeSmarts[1];
                     if (statTemp == 0) {
                         writeCul = "N/A";
                     }
                     else {
                         writeCul = diceSetter(statTemp);
                     }
-                    statTemp = smartsStats[2];
+                    statTemp = writeSmarts[2];
                     if (statTemp == 0) {
                         writeSci = "N/A";
                     }
                     else {
                         writeSci = diceSetter(statTemp);
                     }
-                    statTemp = smartsStats[3];
+                    statTemp = writeSmarts[3];
                     if (statTemp == 0) {
                         writeSur = "N/A";
                     }
                     else {
                         writeSur = diceSetter(statTemp);
                     }
-                    statTemp = smartsStats[4];
+                    statTemp = writeSmarts[4];
                     if (statTemp == 0) {
                         writeTech = "N/A";
                     }
                     else {
                         writeTech = diceSetter(statTemp);
                     }
-                    writeSocialStat = socialStats[0] + socialStats[1] + socialStats[2] + socialStats[3] + socialStats[4];
+                    writeSocialStat = writeSocial[0] + writeSocial[1] + writeSocial[2] + writeSocial[3] + writeSocial[4];
                     writeCleverness = writeSocialStat + 10;
-                    statTemp = socialStats[0];
+                    statTemp = writeSocial[0];
                     if (statTemp == 0) {
                         writeAniHand = "N/A";
                     }
                     else {
                         writeAniHand = diceSetter(statTemp);
                     }
-                    statTemp = socialStats[1];
+                    statTemp = writeSocial[1];
                     if (statTemp == 0) {
                         writeDec = "N/A";
                     }
                     else {
                         writeDec = diceSetter(statTemp);
                     }
-                    statTemp = socialStats[2];
+                    statTemp = writeSocial[2];
                     if (statTemp == 0) {
                         writePerf = "N/A";
                     }
                     else {
                         writePerf = diceSetter(statTemp);
                     }
-                    statTemp = socialStats[3];
+                    statTemp = writeSocial[3];
                     if (statTemp == 0) {
                         writePers = "N/A";
                     }
                     else {
                         writePers = diceSetter(statTemp);
                     }
-                    statTemp = socialStats[4];
+                    statTemp = writeSocial[4];
                     if (statTemp == 0) {
                         writeStre = "N/A";
                     }
                     else {
                         writeStre = diceSetter(statTemp);
                     }
-                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s, Strength: %s, 
-                        Toughness: %s, Athletics: %s, Brawn: %s, Conditioning: %s, Intimidation: %s, Might: %s, 
-                        Speed: %s, Evasion: %s, Acrobatics: %s, Driving: %S, Finesse: %s, Infiltration: %s, 
-                        Initiative: %s, Targeting: %s, Smarts: %s, Willpower: %s, Alertness: %s, Culture: %s, 
-                        Science: %s, Survival: %s, Technology: %s, Social: %s, Cleverness: %s, Animal Handling: %s, 
-                        Deception: %s, Performance: %s, Persuasion: %s, Streetwise: %s", writeOrigin, writeRole, 
-                        writeSubRole, writeHP, writeLevel, writeStrengthStat, writeToughness, writeAth, writeBraw, 
-                        writeCond, writeInt, writeMig, writeSpeedStat, writeEvasion, writeAcro, writeDriv, writeFin, 
-                        writeInf, writeInit, writeTarg, writeSmartsStat, writeWillpower, writeAlert, writeCul, writeSci, 
-                        writeSur, writeTech, writeSocialStat, writeCleverness, writeAniHand, writeDec, writePerf, 
-                        writePers, writeStre)
-                    // TODO: Add to queue
-                    // TODO: Continue Here
-                    */
+                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s, Strength: %s, " +
+                                    "Toughness: %s, Athletics: %s, Brawn: %s, Conditioning: %s, Intimidation: %s, " +
+                                    "Might: %s, Speed: %s, Evasion: %s, Acrobatics: %s, Driving: %S, Finesse: %s, " +
+                                    "Infiltration: %s, Initiative: %s, Targeting: %s, Smarts: %s, Willpower: %s, " +
+                                    "Alertness: %s, Culture: %s, Science: %s, Survival: %s, Technology: %s, Social: %s, " +
+                                    "Cleverness: %s, Animal Handling: %s, Deception: %s, Performance: %s, " +
+                                    "Persuasion: %s, Streetwise: %s", writeOrigin, writeRole, writeSubRole, writeHP,
+                            writeLevel, writeStrengthStat, writeToughness, writeAth, writeBraw, writeCond, writeInt,
+                            writeMig, writeSpeedStat, writeEvasion, writeAcro, writeDriv, writeFin, writeInf,
+                            writeInit, writeTarg, writeSmartsStat, writeWillpower, writeAlert, writeCul, writeSci,
+                            writeSur, writeTech, writeSocialStat, writeCleverness, writeAniHand, writeDec, writePerf,
+                            writePers, writeStre);
+                    writeQueue.enqueue(inputString);
+                    queueTotal++;
                 }
 
                 PrintWriter writeFile = new PrintWriter("GeneratedNPCs.txt");
@@ -1127,7 +1132,7 @@ public class Main extends Application {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            // TODO: Clear list
+            clearList();
         }
     }
 }
