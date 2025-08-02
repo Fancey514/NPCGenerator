@@ -1,4 +1,5 @@
 public class NPC {
+    // Declare variables and arrays
     private String origin;
     private String role;
     private String subRole;
@@ -7,7 +8,8 @@ public class NPC {
     private int[] Smarts = {0, 0, 0, 0, 0};
     private int[] Social = {0, 0, 0, 0, 0};
     int HP, level;
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Set constructor with parameters
     public NPC(String inOrigin, String inRole, String inSubRole, int[] inStrength, int[] inSpeed, int[] inSmarts, int[] inSocial, int inHP, int inLevel) {
         origin = inOrigin;
         role = inRole;
@@ -20,12 +22,14 @@ public class NPC {
         level = inLevel;
     }
 
+    // Set constructor
     public NPC() {
         origin = "";
         role = "";
         subRole = "";
     }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Setters and getters
     public void setOrigin(String origIn) {
         origin = origIn;
     }
@@ -98,3 +102,4 @@ public class NPC {
         return level;
     }
 }
+
