@@ -477,10 +477,6 @@ public class Main extends Application {
                 } else if (randQuantity.isSelected()) {
                     quantity = randVal.nextInt(5) + 1;
                 }
-                if (Integer.parseInt(playerLevel.getText()) < 1 | Integer.parseInt(playerNum.getText()) < 1) {
-                    tooLow.show();
-                }
-                temp = Integer.parseInt(playerLevel.getText()) * Integer.parseInt(playerNum.getText());
                 if (setLevel.isSelected()) {
                     level = Integer.parseInt(NPCLevelField.getText());
                     if (level < 1) {
@@ -490,6 +486,10 @@ public class Main extends Application {
                         tooHigh.show();
                     }
                 } else if (randLevel.isSelected()) {
+                    if (Integer.parseInt(playerLevel.getText()) < 1 | Integer.parseInt(playerNum.getText()) < 1) {
+                        tooLow.show();
+                    }
+                    temp = Integer.parseInt(playerLevel.getText()) * Integer.parseInt(playerNum.getText());
                     level = temp / quantity;
                     if (level == 0) {
                         level++;
@@ -930,8 +930,8 @@ public class Main extends Application {
                 NPCQueue<String> writeQueue = new NPCQueue<String>();
                 // Open file and declare Scanner
                 File file = new File("GeneratedNPCs.txt");
-                Scanner scnr = new Scanner(file);
                 if (file.exists()) {
+                    Scanner scnr = new Scanner(file);
                     int readIn = 0;
                     // Loop through txt file and save to county arrays
                     while (scnr.hasNext()) {
@@ -941,6 +941,8 @@ public class Main extends Application {
                     }
                     queueTotal += readIn;
                 }
+
+                NPCLinkedList.resetList();
 
                 while (!NPCLinkedList.atEnd()) {
                     NPC StringNPC = new NPC();
@@ -1104,12 +1106,12 @@ public class Main extends Application {
                     else {
                         writeStre = diceSetter(statTemp);
                     }
-                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s, Strength: %s, " +
-                                    "Toughness: %s, Athletics: %s, Brawn: %s, Conditioning: %s, Intimidation: %s, " +
-                                    "Might: %s, Speed: %s, Evasion: %s, Acrobatics: %s, Driving: %S, Finesse: %s, " +
-                                    "Infiltration: %s, Initiative: %s, Targeting: %s, Smarts: %s, Willpower: %s, " +
-                                    "Alertness: %s, Culture: %s, Science: %s, Survival: %s, Technology: %s, Social: %s, " +
-                                    "Cleverness: %s, Animal Handling: %s, Deception: %s, Performance: %s, " +
+                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s, Strength: %d, " +
+                                    "Toughness: %d, Athletics: %s, Brawn: %s, Conditioning: %s, Intimidation: %s, " +
+                                    "Might: %s, Speed: %d, Evasion: %d, Acrobatics: %s, Driving: %S, Finesse: %s, " +
+                                    "Infiltration: %s, Initiative: %s, Targeting: %s, Smarts: %d, Willpower: %d, " +
+                                    "Alertness: %s, Culture: %s, Science: %s, Survival: %s, Technology: %s, Social: %d, " +
+                                    "Cleverness: %d, Animal Handling: %s, Deception: %s, Performance: %s, " +
                                     "Persuasion: %s, Streetwise: %s", writeOrigin, writeRole, writeSubRole, writeHP,
                             writeLevel, writeStrengthStat, writeToughness, writeAth, writeBraw, writeCond, writeInt,
                             writeMig, writeSpeedStat, writeEvasion, writeAcro, writeDriv, writeFin, writeInf,
