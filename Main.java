@@ -44,82 +44,84 @@ public class Main extends Application {
     public int quantity = 0, NPCid = 0, level, extraLevel, charNum = 0, currentBot, totalBot = 0;
     public boolean newQuantity = false;
     public String xOfX;
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Open UI
     public static void main(String[] args) {
         launch(args);
     }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Set UI
     @Override
     public void start(Stage primaryStage) {
 
-        playerNumLabel = new Label("Number of Players");                    // Set Number of Players controls
+        playerNumLabel = new Label("Number of Players");                              // Set Number of Players controls
         playerNum = new TextField();
         playerNum.setMaxWidth(25);
-        HBox numPlayers = new HBox(10, playerNumLabel, playerNum);       // Set Number of Players HBox
+        HBox numPlayers = new HBox(10, playerNumLabel, playerNum);                    // Set Number of Players HBox
         numPlayers.setAlignment(Pos.CENTER_RIGHT);
 
-        playerLevelLabel = new Label("Player Level");                       // Set Player Level controls
+        playerLevelLabel = new Label("Player Level");                                 // Set Player Level controls
         playerLevel = new TextField();
         playerLevel.setMaxWidth(25);
-        HBox levelPlayer = new HBox(10, playerLevelLabel, playerLevel);  // Set Player Level HBox
+        HBox levelPlayer = new HBox(10, playerLevelLabel, playerLevel);               // Set Player Level HBox
         levelPlayer.setAlignment(Pos.CENTER_RIGHT);
 
-        VBox players = new VBox(10, numPlayers, levelPlayer);            // Assign number of players and player level to VBox
+        VBox players = new VBox(10, numPlayers, levelPlayer);                         // Assign number of players and player level to VBox
         players.setAlignment(Pos.CENTER);
 
-        numLevelSelect = new ToggleGroup();                                     // Set toggle group for level radio buttons
-        NPCLevel = new Label("NPC Level");                                 // Set Level label
-        randLevel = new RadioButton("Random");                             // Assign Random and Set to toggle group
+        numLevelSelect = new ToggleGroup();                                           // Set toggle group for level radio buttons
+        NPCLevel = new Label("NPC Level");                                            // Set Level label
+        randLevel = new RadioButton("Random");                                        // Assign Random and Set to toggle group
         randLevel.setSelected(true);
         randLevel.setToggleGroup(numLevelSelect);
         setLevel = new RadioButton("Set");
         setLevel.setToggleGroup(numLevelSelect);
-        NPCLevelField = new TextField();                                        // Set Level field is Set radio button is selected
+        NPCLevelField = new TextField();                                              // Set Level field is Set radio button is selected
         NPCLevelField.setMaxWidth(30);
         NPCLevelField.setVisible(false);
-        setLevel.setOnAction(e -> {                                             // Reveal Level field if Set is selected
+        setLevel.setOnAction(e -> {                                                   // Reveal Level field if Set is selected
             NPCLevelField.setVisible(true);
         });
-        randLevel.setOnAction(e -> {                                            // Hide Level field if Random is selected
+        randLevel.setOnAction(e -> {                                                  // Hide Level field if Random is selected
             NPCLevelField.setVisible(false);
         });
-        HBox setLevelBox = new HBox(10, setLevel, NPCLevelField);
+        HBox setLevelBox = new HBox(10, setLevel, NPCLevelField);                     // Create HBox for set level controls
         setLevelBox.setAlignment(Pos.CENTER);
-        VBox levelVB = new VBox(10, NPCLevel, randLevel, setLevelBox);
+        VBox levelVB = new VBox(10, NPCLevel, randLevel, setLevelBox);                // Create VBox for level controls and include set level HBox
         levelVB.setAlignment(Pos.CENTER_LEFT);
 
-        numQuantitySelect = new ToggleGroup();
+        numQuantitySelect = new ToggleGroup();                                        // Set Toggle Group for the Quantity options
         NPCQuantity = new Label("NPC Quantity");
-        randQuantity = new RadioButton("Random");
-        randQuantity.setSelected(true);
-        randQuantity.setToggleGroup(numQuantitySelect);
-        setQuantity = new RadioButton("Set");
-        setQuantity.setToggleGroup(numQuantitySelect);
-        quantityField = new TextField();
+        randQuantity = new RadioButton("Random");                                     // Set radio button for random quantity
+        randQuantity.setSelected(true);                                               // Make the random option selected by default
+        randQuantity.setToggleGroup(numQuantitySelect);                               // Assign random quantity radio button to quantity toggle group
+        setQuantity = new RadioButton("Set");                                         // Set radio button for user selection
+        setQuantity.setToggleGroup(numQuantitySelect);                                // Assign set quantity to quantity toggle group
+        quantityField = new TextField();                                              // Set text field for user to enter quantity value
         quantityField.setMaxWidth(30);
-        quantityField.setVisible(false);
+        quantityField.setVisible(false);                                              // Hide set quantity text field
         setQuantity.setOnAction(e -> {
-            quantityField.setVisible(true);
+            quantityField.setVisible(true);                                           // Make set quantity text field visible if set quantity radio button is selected
         });
         randQuantity.setOnAction(e -> {
-            quantityField.setVisible(false);
+            quantityField.setVisible(false);                                          // Hide set quantity text field if random quantity is selected
         });
-        HBox setQuantityBox = new HBox(10, setQuantity, quantityField);
+        HBox setQuantityBox = new HBox(10, setQuantity, quantityField);               // Set HBox for user selected quantity controls
         setQuantityBox.setAlignment(Pos.CENTER);
-        VBox quantityVB = new VBox(10, NPCQuantity, randQuantity, setQuantityBox);
+        VBox quantityVB = new VBox(10, NPCQuantity, randQuantity, setQuantityBox);    // Set VBox for quantity controls
         quantityVB.setAlignment(Pos.CENTER_LEFT);
 
-        HBox radioHB = new HBox(50, players, quantityVB, levelVB);
+        HBox radioHB = new HBox(50, players, quantityVB, levelVB);                    // Create HBox and assign players, quantityVB and levelVB VBoxes
         radioHB.setAlignment(Pos.CENTER);
 
-        GenerateNPCs = new Button("Generate NPC(s)");
+        GenerateNPCs = new Button("Generate NPC(s)");                                 // Set button to generate NPCs
         GenerateNPCs.setOnAction(new GenerateNPCsClickHandler());
-        HBox runHB = new HBox(GenerateNPCs);
+        HBox runHB = new HBox(GenerateNPCs);                                          // Create HBox and assign GenerateNPCs button
         runHB.setAlignment(Pos.CENTER);
 
+        // Player stats
 
+        // HP stat
         hpLabel = new Label("HP");
         hpField = new TextField();
         hpField.setEditable(false);
@@ -127,6 +129,7 @@ public class Main extends Application {
         VBox hpBox = new VBox(10, hpLabel, hpField);
         hpBox.setAlignment(Pos.CENTER);
 
+        // Character Level
         levelLabel = new Label("Level");
         levelField = new TextField();
         levelField.setEditable(false);
@@ -134,27 +137,32 @@ public class Main extends Application {
         VBox levelBox = new VBox(10, levelLabel, levelField);
         levelBox.setAlignment(Pos.CENTER);
 
+        // Character Origin
         originLabel = new Label("Origin");
         originField = new TextField();
         originField.setEditable(false);
         VBox originBox = new VBox(10, originLabel, originField);
         originBox.setAlignment(Pos.CENTER);
 
+        // Character Role
         roleLabel = new Label("Role");
         roleField = new TextField();
         roleField.setEditable(false);
         VBox roleBox = new VBox(10, roleLabel, roleField);
         roleBox.setAlignment(Pos.CENTER);
 
-        subRoleLabel = new Label("SubRole");
+        // Character Sub-Role
+        subRoleLabel = new Label("Sub-Role");
         subRoleField = new TextField();
         subRoleField.setEditable(false);
         VBox subRoleBox = new VBox(10, subRoleLabel, subRoleField);
         roleBox.setAlignment(Pos.CENTER);
 
+        // HP, Level, Origin, Role, and Sub-Role HBox
         HBox topInfo = new HBox(25, hpBox, levelBox, originBox, roleBox, subRoleBox);
         topInfo.setAlignment(Pos.CENTER);
 
+        // Strength Stat
         strengthLabel = new Label("Strength");
         strengthLabel.setFont(Font.font(16));
         strengthField = new TextField();
@@ -163,6 +171,7 @@ public class Main extends Application {
         HBox strengthBox = new HBox(10, strengthLabel, strengthField);
         strengthBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Toughness Stat
         toughLabel = new Label("Toughness");
         toughLabel.setFont(Font.font(14));
         toughField = new TextField();
@@ -171,6 +180,7 @@ public class Main extends Application {
         HBox toughBox = new HBox(10, toughLabel, toughField);
         toughBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Athletics Stat
         athLabel = new Label("Athletics");
         athField = new TextField();
         athField.setEditable(false);
@@ -178,6 +188,7 @@ public class Main extends Application {
         HBox athleticsBox = new HBox(10, athLabel, athField);
         athleticsBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Brawl Stat
         brawLabel = new Label("Brawn");
         brawField = new TextField();
         brawField.setEditable(false);
@@ -185,6 +196,7 @@ public class Main extends Application {
         HBox brawnBox = new HBox(10, brawLabel, brawField);
         brawnBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Conditioning Stat
         condLabel = new Label("Conditioning");
         condField = new TextField();
         condField.setEditable(false);
@@ -192,6 +204,7 @@ public class Main extends Application {
         HBox condBox = new HBox(10, condLabel, condField);
         brawnBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Intimidation Stat
         intLabel = new Label("Intimidation");
         intField = new TextField();
         intField.setEditable(false);
@@ -199,6 +212,7 @@ public class Main extends Application {
         HBox intimidationBox = new HBox(10, intLabel, intField);
         intimidationBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Might Stat
         migLabel = new Label("Might");
         migField = new TextField();
         migField.setEditable(false);
@@ -206,9 +220,11 @@ public class Main extends Application {
         HBox mightBox = new HBox(10, migLabel, migField);
         mightBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Strength Stats VBox
         VBox streEssBox = new VBox(10, strengthBox, toughBox, athleticsBox, brawnBox, condBox, intimidationBox, mightBox);
         streEssBox.setAlignment(Pos.TOP_CENTER);
 
+        // Speed Stat
         speedLabel = new Label("Speed");
         speedLabel.setFont(Font.font(16));
         speedField = new TextField();
@@ -217,6 +233,7 @@ public class Main extends Application {
         HBox speedBox = new HBox(10, speedLabel, speedField);
         speedBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Evasion Stat
         evaLabel = new Label("Evasion");
         evaLabel.setFont(Font.font(14));
         evaField = new TextField();
@@ -225,6 +242,7 @@ public class Main extends Application {
         HBox evadeBox = new HBox(10, evaLabel, evaField);
         evadeBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Athletics Stat
         acroLabel = new Label("Acrobatics");
         acroField = new TextField();
         acroField.setEditable(false);
@@ -232,6 +250,7 @@ public class Main extends Application {
         HBox acrobaticsBox = new HBox(10, acroLabel, acroField);
         acrobaticsBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Driving Stat
         drivLabel = new Label("Driving");
         drivField = new TextField();
         drivField.setEditable(false);
@@ -239,6 +258,7 @@ public class Main extends Application {
         HBox drivingBox = new HBox(10, drivLabel, drivField);
         drivingBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Finesse Stat
         finLabel = new Label("Finesse");
         finField = new TextField();
         finField.setEditable(false);
@@ -246,6 +266,7 @@ public class Main extends Application {
         HBox finesseBox = new HBox(10, finLabel, finField);
         finesseBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Infiltration Stat
         infLabel = new Label("Infiltration");
         infField = new TextField();
         infField.setEditable(false);
@@ -253,6 +274,7 @@ public class Main extends Application {
         HBox infiltrationBox = new HBox(10, infLabel, infField);
         infiltrationBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Initiative Stat
         initLabel = new Label("Initiative");
         initField = new TextField();
         initField.setEditable(false);
@@ -260,6 +282,7 @@ public class Main extends Application {
         HBox initiativeBox = new HBox(10, initLabel, initField);
         initiativeBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Targeting Stat
         targLabel = new Label("Targeting");
         targField = new TextField();
         targField.setEditable(false);
@@ -267,9 +290,11 @@ public class Main extends Application {
         HBox targetingBox = new HBox(10, targLabel, targField);
         targetingBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Speed Stats VBox
         VBox speEssBox = new VBox(10, speedBox, evadeBox, acrobaticsBox, drivingBox, finesseBox, infiltrationBox, initiativeBox, targetingBox);
         speEssBox.setAlignment(Pos.TOP_CENTER);
 
+        // Smarts Stat
         smartsLabel = new Label("Smarts");
         smartsLabel.setFont(Font.font(16));
         smartsField = new TextField();
@@ -278,6 +303,7 @@ public class Main extends Application {
         HBox smartsBox = new HBox(10, smartsLabel, smartsField);
         smartsBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Willpower Stat
         willpowLabel = new Label("Willpower");
         willpowLabel.setFont(Font.font(14));
         willpowField = new TextField();
@@ -286,6 +312,7 @@ public class Main extends Application {
         HBox willpowerBox = new HBox(10, willpowLabel, willpowField);
         willpowerBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Alertness Stat
         alerLabel = new Label("Alertness");
         alerField = new TextField();
         alerField.setEditable(false);
@@ -293,6 +320,7 @@ public class Main extends Application {
         HBox alertnessBox = new HBox(10, alerLabel, alerField);
         alertnessBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Culture Stat
         culLabel = new Label("Culture");
         culField = new TextField();
         culField.setEditable(false);
@@ -300,6 +328,7 @@ public class Main extends Application {
         HBox cultureBox = new HBox(10, culLabel, culField);
         cultureBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Science Stat
         sciLabel = new Label("Science");
         sciField = new TextField();
         sciField.setEditable(false);
@@ -307,6 +336,7 @@ public class Main extends Application {
         HBox scienceBox = new HBox(10, sciLabel, sciField);
         scienceBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Survival Stat
         surLabel = new Label("Survival");
         surField = new TextField();
         surField.setEditable(false);
@@ -314,6 +344,7 @@ public class Main extends Application {
         HBox survivalBox = new HBox(10, surLabel, surField);
         survivalBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Technology Stat
         techLabel = new Label("Technology");
         techField = new TextField();
         techField.setEditable(false);
@@ -321,9 +352,11 @@ public class Main extends Application {
         HBox technologyBox = new HBox(10, techLabel, techField);
         technologyBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Smarts Stats VBox
         VBox smaEssBox = new VBox(10, smartsBox, willpowerBox, alertnessBox, cultureBox, scienceBox, survivalBox, technologyBox);
         smaEssBox.setAlignment(Pos.TOP_CENTER);
 
+        // Social Stat
         socialLabel = new Label("Social");
         socialLabel.setFont(Font.font(16));
         socialField = new TextField();
@@ -332,6 +365,7 @@ public class Main extends Application {
         HBox socialBox = new HBox(10, socialLabel, socialField);
         socialBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Cleverness Stat
         clevLabel = new Label("Cleverness");
         clevLabel.setFont(Font.font(14));
         clevField = new TextField();
@@ -340,6 +374,7 @@ public class Main extends Application {
         HBox clevernessBox = new HBox(10, clevLabel, clevField);
         clevernessBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Animal Handling Stat
         anHandLabel = new Label("Animal Handling");
         anHandField = new TextField();
         anHandField.setEditable(false);
@@ -347,6 +382,7 @@ public class Main extends Application {
         HBox animalHandlingBox = new HBox(10, anHandLabel, anHandField);
         animalHandlingBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Deception Stat
         decLabel = new Label("Deception");
         decField = new TextField();
         decField.setEditable(false);
@@ -354,6 +390,7 @@ public class Main extends Application {
         HBox deceptionBox = new HBox(10, decLabel, decField);
         deceptionBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Performance Stat
         perfLabel = new Label("Performance");
         perfField = new TextField();
         perfField.setEditable(false);
@@ -361,6 +398,7 @@ public class Main extends Application {
         HBox performanceBox = new HBox(10, perfLabel, perfField);
         performanceBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Persuasion Stat
         persLabel = new Label("Persuasion");
         persField = new TextField();
         persField.setEditable(false);
@@ -368,6 +406,7 @@ public class Main extends Application {
         HBox persuasionBox = new HBox(10, persLabel, persField);
         persuasionBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Streetwise Stat
         streLabel = new Label("Streetwise");
         streField = new TextField();
         streField.setEditable(false);
@@ -375,46 +414,51 @@ public class Main extends Application {
         HBox streetwiseBox = new HBox(10, streLabel, streField);
         streetwiseBox.setAlignment(Pos.CENTER_RIGHT);
 
+        // Social Stats VBox
         VBox socEssBox = new VBox(10, socialBox, clevernessBox, animalHandlingBox, deceptionBox, performanceBox, persuasionBox, streetwiseBox);
         socEssBox.setAlignment(Pos.TOP_CENTER);
 
+        // Combined stats HBox
         HBox essenceBox = new HBox(50,streEssBox, speEssBox, smaEssBox, socEssBox);
         essenceBox.setAlignment(Pos.CENTER);
 
-        previous = new Button("Previous");
-        previous.setDisable(true);
-        previous.setOnAction(new PreviousClickHandler());
-        currentLabel = new Label();
-        next = new Button("Next");
-        next.setDisable(true);
-        next.setOnAction(new NextClickHandler());
-        HBox prevNextHB = new HBox(25, previous, currentLabel, next);
+        previous = new Button("Previous");                                            // Create Previous Button
+        previous.setDisable(true);                                                    // Disable while at the beginning or no data exists
+        previous.setOnAction(new PreviousClickHandler());                             // Execute Previous action handler once pressed
+        currentLabel = new Label();                                                   // Create a label for active character
+        next = new Button("Next");                                                    // Create New Button
+        next.setDisable(true);                                                        // Disable until characters are generated
+        next.setOnAction(new NextClickHandler());                                     // Execute Next action handler once pressed
+        HBox prevNextHB = new HBox(25, previous, currentLabel, next);                 // Create HBox and assign previous, current character, and next
         prevNextHB.setAlignment(Pos.CENTER);
 
-        clear = new Button("Clear List");
-        clear.setDisable(true);
-        clear.setOnAction(new ClearClickHandler());
-        writeToFile = new Button("Write to File & Clear");
-        writeToFile.setDisable(true);
-        writeToFile.setOnAction(new WriteToFileClickHandler());
-        HBox clearWrite = new HBox(40, clear, writeToFile);
+        clear = new Button("Clear List");                                             // Create button to clear the list
+        clear.setDisable(true);                                                       // Disable until character generation
+        clear.setOnAction(new ClearClickHandler());                                   // Execute Clear action handler once pressed
+        writeToFile = new Button("Write to File & Clear");                            // Create button to write data to file and clear the list
+        writeToFile.setDisable(true);                                                 // Disable until character generation
+        writeToFile.setOnAction(new WriteToFileClickHandler());                       // Execute writeToFile action handler once pressed
+        HBox clearWrite = new HBox(40, clear, writeToFile);                           // Create HBox and assign clear and Write-to-file buttons
         clearWrite.setAlignment(Pos.CENTER);
 
+        // VBox to contain all HBoxes to set the scene
         VBox TotalVB = new VBox(30, radioHB, runHB, topInfo, essenceBox, prevNextHB, clearWrite);
         TotalVB.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(TotalVB, 700, 700);
+        Scene scene = new Scene(TotalVB, 700, 700);                                   // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
         primaryStage.setScene(scene);
         primaryStage.setTitle("NPC Generator");
-        primaryStage.show();
+        primaryStage.show();                                                          // Display the scene
     }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Clear List method
     public void clearList() {
-        NPCLinkedList.resetList();
+        NPCLinkedList.resetList();                               // Set LinkedList to beginning
         while (!NPCLinkedList.isEmpty()) {
-            NPCLinkedList.removeAt(0);
+            NPCLinkedList.removeAt(0);                           // Remove the first NPC until the list is empty
         }
-        hpField.setText("");
+        
+        hpField.setText("");                                     // Clear the textfields
         levelField.setText("");
         originField.setText("");
         roleField.setText("");
@@ -449,66 +493,99 @@ public class Main extends Application {
         persField.setText("");
         streField.setText("");
         currentLabel.setText("");
-        previous.setDisable(true);
+        
+        previous.setDisable(true);                               // Disable all buttons except the Generate NPCs button
         next.setDisable(true);
         clear.setDisable(true);
         writeToFile.setDisable(true);
-        totalBot = 0;
-        NPCLinkedList.resetList();
+        
+        totalBot = 0;                                            // Set totalBot variable to 0
     }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Method for determining dice level for the skills
+    public String diceSetter(int points) {
+        String dieSet = "";
+        // The more points in a skill, the bigger the dice size
+        if (points == 0) {
+            dieSet = "N/A";
+        }
+        else if (points == 1) {
+            dieSet = "D2";
+        }
+        else if (points == 2) {
+            dieSet = "D4";
+        }
+        else if (points == 3) {
+            dieSet = "D6";
+        }
+        else if (points == 4) {
+            dieSet = "D8";
+        }
+        else if (points == 5) {
+            dieSet = "D10";
+        }
+        else if (points == 6) {
+            dieSet = "D12";
+        }
+        return dieSet;
+    }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Button to generate the NPC(s)
     class GenerateNPCsClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
+            // Declare variables and arrays
             String origin, role, subRole;
             int[] strengthStats, speedStats, smartsStats, socialStats;
             int temp = 0, hp;
             String diceTemp;
-            Alert tooLow = new Alert(Alert.AlertType.ERROR);
+            
+            Alert tooLow = new Alert(Alert.AlertType.ERROR);                                                                        // Set an alert for any entered value that's lower than 1                                          
             tooLow.setContentText("Entered values must be higher than 0");
-            Alert tooHigh = new Alert(Alert.AlertType.ERROR);
+            Alert tooHigh = new Alert(Alert.AlertType.ERROR);                                                                       // Set an alert for any level value that's higher than 20
             tooHigh.setContentText("Entered values must be lower than 21");
             try {
                 if (setQuantity.isSelected()) {
-                    quantity = Integer.parseInt(quantityField.getText());
+                    quantity = Integer.parseInt(quantityField.getText());                                                           // Set quantity to user-entered value if set quantity is selected
                     if (quantity < 1) {
-                        tooLow.show();
+                        tooLow.show();                                                                                              // If the user-selected quantity is below 1, show tooLow error message
                     }
                 } else if (randQuantity.isSelected()) {
-                    quantity = randVal.nextInt(5) + 1;
+                    quantity = randVal.nextInt(5) + 1;                                                                              // Use number generator to set quantity of NPCs
                 }
                 if (setLevel.isSelected()) {
-                    level = Integer.parseInt(NPCLevelField.getText());
+                    level = Integer.parseInt(NPCLevelField.getText());                                                              // Set level to value entered by the user if set level is selected
                     if (level < 1) {
-                        tooLow.show();
+                        tooLow.show();                                                                                              // If the user-selected level is below 1, show the tooLow error message
                     }
                     if (level > 20) {
-                        tooHigh.show();
+                        tooHigh.show();                                                                                             // If the user-selected level is over 20, show the tooHigh error message
                     }
                 } else if (randLevel.isSelected()) {
-                    if (Integer.parseInt(playerLevel.getText()) < 1 | Integer.parseInt(playerNum.getText()) < 1) {
+                    if (Integer.parseInt(playerLevel.getText()) < 1 | Integer.parseInt(playerNum.getText()) < 1) {                  // Check if the entered player values are above 0 if random level is selected
                         tooLow.show();
                     }
-                    temp = Integer.parseInt(playerLevel.getText()) * Integer.parseInt(playerNum.getText());
-                    level = temp / quantity;
+                    temp = Integer.parseInt(playerLevel.getText()) * Integer.parseInt(playerNum.getText());                         // Multiply the player level by the amount of players to use to get the random level
+                    level = temp / quantity;                                                                                        // Divide the product by the amount of NPCs will be created for the NPC level
                     if (level == 0) {
-                        level++;
+                        level++;                                                                                                    // Set the level to 1 if the quotient is 0
                     }
                 }
-                if (quantity > 0 && level > 0) {
-                    for (int i = 0; i < quantity; i++) {
-                        charNum++;
-                        if (i == quantity - 1 && newQuantity) {
-                            level = extraLevel;
-                            newQuantity = false;
+                if (quantity > 0 && level > 0) {                                                                                    // Verify that the quantity and level are valid
+                    for (int i = 0; i < quantity; i++) {                                                                            // Loop the quantity
+                        charNum++;                                                                                                  // Increase the number of characters were created
+                        if (i == quantity - 1 && newQuantity) {                                                                     // Check if it's the second last loop and if a new quantity is waiting
+                            level = extraLevel;                                                                                     // Change the level to the extra level value
+                            newQuantity = false;                                                                                    // Set newQuantity to false
                         }
-                        if (level > 20 && !newQuantity) {
-                            quantity++;
-                            extraLevel = (level - 20) * (quantity - 1);
-                            level = 20;
-                            newQuantity = true;
+                        if (level > 20 && !newQuantity) {                                                                           // Check if the level is higher than 20
+                            quantity++;                                                                                             // If it is, add one to the quantity
+                            // TODO: Add a boolean to make sure that anything over 20 for the added NPC doesn't cause too many extra NPCs
+                            extraLevel = (level - 20) * (quantity - 1);                                                             // Set extraLevel to the level minus 20 then multiplied by the difference of quantity minus 1
+                            level = 20;                                                                                             // Set the level to 20
+                            newQuantity = true;                                                                                     // Set newQuantity to true to trigger the previous if statement
                         }
-                        NPCSelect = new Selections(level);
+                        NPCSelect = new Selections(level);                                                                          // Create a new Selections class, then retrieve values
                         origin = NPCSelect.getNewOrigin();
                         role = NPCSelect.getNewRole();
                         subRole = NPCSelect.getNewSubRole();
@@ -517,19 +594,19 @@ public class Main extends Application {
                         smartsStats = NPCSelect.getSmarts();
                         socialStats = NPCSelect.getSocial();
                         hp = NPCSelect.getHP();
-                        newNPC = new NPC(origin, role, subRole, strengthStats, speedStats, smartsStats, socialStats, hp, level);
-                        NPCLinkedList.add(newNPC);
-                        hp = 0;
+                        newNPC = new NPC(origin, role, subRole, strengthStats, speedStats, smartsStats, socialStats, hp, level);    // Create a new NPC using the selections made in the Selections class
+                        NPCLinkedList.add(newNPC);                                                                                  // Add the new NPC to the LinkedList
+                        hp = 0;                                                                                                     // Set the HP to 0
                         if (charNum > 1) {
-                            next.setDisable(false);
+                            next.setDisable(false);                                                                                 // Make the "next" button visible if there's more than 1 NPC
                         }
                     }
                 }
-                totalBot += quantity;
-                NPCLinkedList.resetList();
-                newNPC = new NPC();
+                totalBot += quantity;                                                                                               // Increase the total amount of bots by the quantity
+                NPCLinkedList.resetList();                                                                                          // Reset the LinkedList to the start
+                newNPC = new NPC();                                                                                                 // Create a new NPC then make it a copy of the first NPC in the LinkedList
                 newNPC = NPCLinkedList.getNextItem();
-                origin = newNPC.getOrigin();
+                origin = newNPC.getOrigin();                                                                                        // Set variables to NPC values
                 role = newNPC.getRole();
                 subRole = newNPC.getSubRole();
                 hp = newNPC.getHP();
@@ -538,22 +615,22 @@ public class Main extends Application {
                 speedStats = newNPC.getSpeed();
                 smartsStats = newNPC.getSmarts();
                 socialStats = newNPC.getSocial();
-                hpField.setText(String.valueOf(hp));
+                hpField.setText(String.valueOf(hp));                                                                                // Set non-dice related textfields to NPC values
                 levelField.setText(String.valueOf(level));
                 originField.setText(origin);
                 roleField.setText(role);
                 subRoleField.setText(subRole);
-                temp = strengthStats[0] + strengthStats[1] + strengthStats[2] + strengthStats[3] + strengthStats[4];
+                temp = strengthStats[0] + strengthStats[1] + strengthStats[2] + strengthStats[3] + strengthStats[4];                // Add stats for grouping stat
                 strengthField.setText(String.valueOf(temp));
                 temp += 10;
-                toughField.setText(String.valueOf(temp));
-                temp = strengthStats[0];
+                toughField.setText(String.valueOf(temp));                                                                            // Add 10 to group stat for defense stat
+                temp = strengthStats[0];                                                                                             // Get individual stats and send them to the dice setter to get the required dice for each skill
                 diceTemp = diceSetter(temp);
                 athField.setText(diceTemp);
                 temp = strengthStats[1];
                 diceTemp = diceSetter(temp);
                 brawField.setText(diceTemp);
-                temp = strengthStats[2];
+                temp = strengthStats[2];                                                                                             // For Conditioning, add the value in "+_HP"
                 if (temp == 0) {
                     diceTemp = "N/A";
                 }
@@ -627,13 +704,13 @@ public class Main extends Application {
                 temp = socialStats[4];
                 diceTemp = diceSetter(temp);
                 streField.setText(diceTemp);
-                currentBot = 1;
-                xOfX = String.format("%d of %d", currentBot, totalBot);
+                currentBot = 1;                                                                                                      // Set currentBot to 1
+                xOfX = String.format("%d of %d", currentBot, totalBot);                                                              // Set the xOfX string to currentBot of totalBot then set it to the currentLabel
                 currentLabel.setText(xOfX);
-                clear.setDisable(false);
-                writeToFile.setDisable(false);
+                clear.setDisable(false);                                                                                             // Make the Clear button visible
+                writeToFile.setDisable(false);                                                                                       // Make the Write to File button visible
             } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.ERROR);                                                                      // If required numbers aren't entered, display an alert
                 alert.setContentText("Please enter values where needed.");
                 alert.show();
             } catch (NullPointerException e2) {
@@ -642,7 +719,8 @@ public class Main extends Application {
 
         }
     }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Actions for the Next button
     class NextClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
@@ -761,6 +839,7 @@ public class Main extends Application {
             previous.setDisable(false);
         }
     }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     class PreviousClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
@@ -881,40 +960,14 @@ public class Main extends Application {
         }
     }
 
-    public String diceSetter(int points) {
-        String dieSet = "";
-
-        if (points == 0) {
-            dieSet = "N/A";
-        }
-        else if (points == 1) {
-            dieSet = "D2";
-        }
-        else if (points == 2) {
-            dieSet = "D4";
-        }
-        else if (points == 3) {
-            dieSet = "D6";
-        }
-        else if (points == 4) {
-            dieSet = "D8";
-        }
-        else if (points == 5) {
-            dieSet = "D10";
-        }
-        else if (points == 6) {
-            dieSet = "D12";
-        }
-        return dieSet;
-    }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     class ClearClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
             clearList();
         }
     }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     class WriteToFileClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
