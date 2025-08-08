@@ -56,13 +56,13 @@ public class Main extends Application {
 
         playerNumLabel = new Label("Number of Players");                              // Set Number of Players controls
         playerNum = new TextField();
-        playerNum.setMaxWidth(25);
+        playerNum.setMaxWidth(30);
         HBox numPlayers = new HBox(10, playerNumLabel, playerNum);                    // Set Number of Players HBox
         numPlayers.setAlignment(Pos.CENTER_RIGHT);
 
         playerLevelLabel = new Label("Player Level");                                 // Set Player Level controls
         playerLevel = new TextField();
-        playerLevel.setMaxWidth(25);
+        playerLevel.setMaxWidth(30);
         HBox levelPlayer = new HBox(10, playerLevelLabel, playerLevel);               // Set Player Level HBox
         levelPlayer.setAlignment(Pos.CENTER_RIGHT);
 
@@ -422,30 +422,30 @@ public class Main extends Application {
         HBox essenceBox = new HBox(50,streEssBox, speEssBox, smaEssBox, socEssBox);
         essenceBox.setAlignment(Pos.CENTER);
 
-        previous = new Button("Previous");                                            // Create Previous Button
-        previous.setDisable(true);                                                    // Disable while at the beginning or no data exists
-        previous.setOnAction(new PreviousClickHandler());                             // Execute Previous action handler once pressed
-        currentLabel = new Label();                                                   // Create a label for active character
-        next = new Button("Next");                                                    // Create New Button
-        next.setDisable(true);                                                        // Disable until characters are generated
-        next.setOnAction(new NextClickHandler());                                     // Execute Next action handler once pressed
-        HBox prevNextHB = new HBox(25, previous, currentLabel, next);                 // Create HBox and assign previous, current character, and next
+        previous = new Button("Previous");                                        // Create Previous Button
+        previous.setDisable(true);                                                     // Disable while at the beginning or no data exists
+        previous.setOnAction(new PreviousClickHandler());                              // Execute Previous action handler once pressed
+        currentLabel = new Label();                                                    // Create a label for active character
+        next = new Button("Next");                                                // Create New Button
+        next.setDisable(true);                                                         // Disable until characters are generated
+        next.setOnAction(new NextClickHandler());                                      // Execute Next action handler once pressed
+        HBox prevNextHB = new HBox(25, previous, currentLabel, next);          // Create HBox and assign previous, current character, and next
         prevNextHB.setAlignment(Pos.CENTER);
 
-        clear = new Button("Clear List");                                             // Create button to clear the list
-        clear.setDisable(true);                                                       // Disable until character generation
-        clear.setOnAction(new ClearClickHandler());                                   // Execute Clear action handler once pressed
-        writeToFile = new Button("Write to File & Clear");                            // Create button to write data to file and clear the list
-        writeToFile.setDisable(true);                                                 // Disable until character generation
-        writeToFile.setOnAction(new WriteToFileClickHandler());                       // Execute writeToFile action handler once pressed
-        HBox clearWrite = new HBox(40, clear, writeToFile);                           // Create HBox and assign clear and Write-to-file buttons
+        clear = new Button("Clear List");                                         // Create button to clear the list
+        clear.setDisable(true);                                                        // Disable until character generation
+        clear.setOnAction(new ClearClickHandler());                                    // Execute Clear action handler once pressed
+        writeToFile = new Button("Write to File & Clear");                        // Create button to write data to file and clear the list
+        writeToFile.setDisable(true);                                                  // Disable until character generation
+        writeToFile.setOnAction(new WriteToFileClickHandler());                        // Execute writeToFile action handler once pressed
+        HBox clearWrite = new HBox(40, clear, writeToFile);                    // Create HBox and assign clear and Write-to-file buttons
         clearWrite.setAlignment(Pos.CENTER);
 
         // VBox to contain all HBoxes to set the scene
         VBox TotalVB = new VBox(30, radioHB, runHB, topInfo, essenceBox, prevNextHB, clearWrite);
         TotalVB.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(TotalVB, 700, 700);                                   // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
+        Scene scene = new Scene(TotalVB, 700, 700);                       // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
         primaryStage.setScene(scene);
         primaryStage.setTitle("NPC Generator");
         primaryStage.show();                                                          // Display the scene
@@ -493,7 +493,9 @@ public class Main extends Application {
         persField.setText("");
         streField.setText("");
         currentLabel.setText("");
-        
+
+        NPCid = 0;                                               // Set NPCid to 0 so previous cannot be less than 1
+
         previous.setDisable(true);                               // Disable all buttons except the Generate NPCs button
         next.setDisable(true);
         clear.setDisable(true);
@@ -539,19 +541,21 @@ public class Main extends Application {
             int[] strengthStats, speedStats, smartsStats, socialStats;
             int temp = 0, hp;
             String diceTemp;
+            boolean alreadyIncreased = false;
             
             Alert tooLow = new Alert(Alert.AlertType.ERROR);                                                                        // Set an alert for any entered value that's lower than 1                                          
             tooLow.setContentText("Entered values must be higher than 0");
             Alert tooHigh = new Alert(Alert.AlertType.ERROR);                                                                       // Set an alert for any level value that's higher than 20
             tooHigh.setContentText("Entered values must be lower than 21");
             try {
+                NPCid = 0;
                 if (setQuantity.isSelected()) {
                     quantity = Integer.parseInt(quantityField.getText());                                                           // Set quantity to user-entered value if set quantity is selected
                     if (quantity < 1) {
                         tooLow.show();                                                                                              // If the user-selected quantity is below 1, show tooLow error message
                     }
                 } else if (randQuantity.isSelected()) {
-                    quantity = randVal.nextInt(5) + 1;                                                                              // Use number generator to set quantity of NPCs
+                    quantity = randVal.nextInt(5) + 1;                                                                        // Use number generator to set quantity of NPCs
                 }
                 if (setLevel.isSelected()) {
                     level = Integer.parseInt(NPCLevelField.getText());                                                              // Set level to value entered by the user if set level is selected
@@ -564,6 +568,9 @@ public class Main extends Application {
                 } else if (randLevel.isSelected()) {
                     if (Integer.parseInt(playerLevel.getText()) < 1 | Integer.parseInt(playerNum.getText()) < 1) {                  // Check if the entered player values are above 0 if random level is selected
                         tooLow.show();
+                    }
+                    if (Integer.parseInt(playerLevel.getText()) > 20) {                                                             // Ensure that the player level entered is less than 21
+                        playerLevel.setText("");
                     }
                     temp = Integer.parseInt(playerLevel.getText()) * Integer.parseInt(playerNum.getText());                         // Multiply the player level by the amount of players to use to get the random level
                     level = temp / quantity;                                                                                        // Divide the product by the amount of NPCs will be created for the NPC level
@@ -580,8 +587,11 @@ public class Main extends Application {
                         }
                         if (level > 20 && !newQuantity) {                                                                           // Check if the level is higher than 20
                             quantity++;                                                                                             // If it is, add one to the quantity
-                            // TODO: Add a boolean to make sure that anything over 20 for the added NPC doesn't cause too many extra NPCs
-                            extraLevel = (level - 20) * (quantity - 1);                                                             // Set extraLevel to the level minus 20 then multiplied by the difference of quantity minus 1
+                            extraLevel = (level - 20);                                                                              // Subtract 20 from the level to get the extraLevel value
+                            if (!alreadyIncreased) {
+                                extraLevel = extraLevel * (quantity - 1);                                                           // Set extraLevel to extraLevel multiplied by the difference of quantity minus 1
+                                alreadyIncreased = true;
+                            }
                             level = 20;                                                                                             // Set the level to 20
                             newQuantity = true;                                                                                     // Set newQuantity to true to trigger the previous if statement
                         }
@@ -709,9 +719,10 @@ public class Main extends Application {
                 currentLabel.setText(xOfX);
                 clear.setDisable(false);                                                                                             // Make the Clear button visible
                 writeToFile.setDisable(false);                                                                                       // Make the Write to File button visible
+                alreadyIncreased = false;
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);                                                                      // If required numbers aren't entered, display an alert
-                alert.setContentText("Please enter values where needed.");
+                alert.setContentText("Please enter values where needed. Player level must be below 20.");
                 alert.show();
             } catch (NullPointerException e2) {
                 tooLow.show();
@@ -1159,11 +1170,11 @@ public class Main extends Application {
                     else {
                         writeStre = diceSetter(statTemp);
                     }
-                    inputString = String.format("Origin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s, Strength: %d, " +
+                    inputString = String.format("\nOrigin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s\nStrength: %d, " +
                                     "Toughness: %d, Athletics: %s, Brawn: %s, Conditioning: %s, Intimidation: %s, " +
-                                    "Might: %s, Speed: %d, Evasion: %d, Acrobatics: %s, Driving: %S, Finesse: %s, " +
-                                    "Infiltration: %s, Initiative: %s, Targeting: %s, Smarts: %d, Willpower: %d, " +
-                                    "Alertness: %s, Culture: %s, Science: %s, Survival: %s, Technology: %s, Social: %d, " +
+                                    "Might: %s\nSpeed: %d, Evasion: %d, Acrobatics: %s, Driving: %S, Finesse: %s, " +
+                                    "Infiltration: %s, Initiative: %s, Targeting: %s\nSmarts: %d, Willpower: %d, " +
+                                    "Alertness: %s, Culture: %s, Science: %s, Survival: %s, Technology: %s\nSocial: %d, " +
                                     "Cleverness: %d, Animal Handling: %s, Deception: %s, Performance: %s, " +
                                     "Persuasion: %s, Streetwise: %s", writeOrigin, writeRole, writeSubRole, writeHP,
                             writeLevel, writeStrengthStat, writeToughness, writeAth, writeBraw, writeCond, writeInt,
