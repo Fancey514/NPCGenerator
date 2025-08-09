@@ -500,7 +500,8 @@ public class Main extends Application {
         next.setDisable(true);
         clear.setDisable(true);
         writeToFile.setDisable(true);
-        
+
+        charNum = 0;
         totalBot = 0;                                            // Set totalBot variable to 0
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -720,6 +721,9 @@ public class Main extends Application {
                 clear.setDisable(false);                                                                                             // Make the Clear button visible
                 writeToFile.setDisable(false);                                                                                       // Make the Write to File button visible
                 alreadyIncreased = false;
+                if (totalBot == 1) {
+                    next.setDisable(true);
+                }
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);                                                                      // If required numbers aren't entered, display an alert
                 alert.setContentText("Please enter values where needed. Player level must be below 20.");
