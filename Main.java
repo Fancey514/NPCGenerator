@@ -423,42 +423,42 @@ public class Main extends Application {
         essenceBox.setAlignment(Pos.CENTER);
 
         previous = new Button("Previous");                                        // Create Previous Button
-        previous.setDisable(true);                                                     // Disable while at the beginning or no data exists
-        previous.setOnAction(new PreviousClickHandler());                              // Execute Previous action handler once pressed
-        currentLabel = new Label();                                                    // Create a label for active character
+        previous.setDisable(true);                                                // Disable while at the beginning or no data exists
+        previous.setOnAction(new PreviousClickHandler());                         // Execute Previous action handler once pressed
+        currentLabel = new Label();                                               // Create a label for active character
         next = new Button("Next");                                                // Create New Button
-        next.setDisable(true);                                                         // Disable until characters are generated
-        next.setOnAction(new NextClickHandler());                                      // Execute Next action handler once pressed
-        HBox prevNextHB = new HBox(25, previous, currentLabel, next);          // Create HBox and assign previous, current character, and next
+        next.setDisable(true);                                                    // Disable until characters are generated
+        next.setOnAction(new NextClickHandler());                                 // Execute Next action handler once pressed
+        HBox prevNextHB = new HBox(25, previous, currentLabel, next);             // Create HBox and assign previous, current character, and next
         prevNextHB.setAlignment(Pos.CENTER);
 
         clear = new Button("Clear List");                                         // Create button to clear the list
-        clear.setDisable(true);                                                        // Disable until character generation
-        clear.setOnAction(new ClearClickHandler());                                    // Execute Clear action handler once pressed
+        clear.setDisable(true);                                                   // Disable until character generation
+        clear.setOnAction(new ClearClickHandler());                               // Execute Clear action handler once pressed
         writeToFile = new Button("Write to File & Clear");                        // Create button to write data to file and clear the list
-        writeToFile.setDisable(true);                                                  // Disable until character generation
-        writeToFile.setOnAction(new WriteToFileClickHandler());                        // Execute writeToFile action handler once pressed
-        HBox clearWrite = new HBox(40, clear, writeToFile);                    // Create HBox and assign clear and Write-to-file buttons
+        writeToFile.setDisable(true);                                             // Disable until character generation
+        writeToFile.setOnAction(new WriteToFileClickHandler());                   // Execute writeToFile action handler once pressed
+        HBox clearWrite = new HBox(40, clear, writeToFile);                       // Create HBox and assign clear and Write-to-file buttons
         clearWrite.setAlignment(Pos.CENTER);
 
         // VBox to contain all HBoxes to set the scene
         VBox TotalVB = new VBox(30, radioHB, runHB, topInfo, essenceBox, prevNextHB, clearWrite);
         TotalVB.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(TotalVB, 700, 700);                       // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
+        Scene scene = new Scene(TotalVB, 700, 700);                               // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
         primaryStage.setScene(scene);
         primaryStage.setTitle("NPC Generator");
-        primaryStage.show();                                                          // Display the scene
+        primaryStage.show();                                                      // Display the scene
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Clear List method
     public void clearList() {
-        NPCLinkedList.resetList();                               // Set LinkedList to beginning
+        NPCLinkedList.resetList();             // Set LinkedList to beginning
         while (!NPCLinkedList.isEmpty()) {
-            NPCLinkedList.removeAt(0);                           // Remove the first NPC until the list is empty
+            NPCLinkedList.removeAt(0);         // Remove the first NPC until the list is empty
         }
         
-        hpField.setText("");                                     // Clear the textfields
+        hpField.setText("");                   // Clear the textfields
         levelField.setText("");
         originField.setText("");
         roleField.setText("");
@@ -494,15 +494,15 @@ public class Main extends Application {
         streField.setText("");
         currentLabel.setText("");
 
-        NPCid = 0;                                               // Set NPCid to 0 so previous cannot be less than 1
+        NPCid = 0;                             // Set NPCid to 0 so previous cannot be less than 1
 
-        previous.setDisable(true);                               // Disable all buttons except the Generate NPCs button
+        previous.setDisable(true);             // Disable all buttons except the Generate NPCs button
         next.setDisable(true);
         clear.setDisable(true);
         writeToFile.setDisable(true);
 
-        charNum = 0;
-        totalBot = 0;                                            // Set totalBot variable to 0
+        charNum = 0;                           // Set charNum to 0 to ensure next button is disabled if only one character is generated
+        totalBot = 0;                          // Set totalBot variable to 0
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Method for determining dice level for the skills
@@ -740,21 +740,22 @@ public class Main extends Application {
         @Override
         public void handle(ActionEvent clicked) {
 
+            // Declare variables
             int temp;
             String diceTemp;
 
-            newNPC = new NPC();
-            newNPC = NPCLinkedList.getNextItem();
-            String origin = newNPC.getOrigin();
+            newNPC = new NPC();                                         // Create emmpty NPC instance
+            newNPC = NPCLinkedList.getNextItem();                       // Copy current NPC in the Linked List to the empty NPC
+            String origin = newNPC.getOrigin();                         // Fill Classifications, HP, and Level
             String role = newNPC.getRole();
             String subRole = newNPC.getSubRole();
             int hp = newNPC.getHP();
             int level = newNPC.getLevel();
-            int[] strengthStats = newNPC.getStrength();
+            int[] strengthStats = newNPC.getStrength();                 // Get array values from NPC
             int[] speedStats = newNPC.getSpeed();
             int[] smartsStats = newNPC.getSmarts();
             int[] socialStats = newNPC.getSocial();
-            hpField.setText(String.valueOf(hp));
+            hpField.setText(String.valueOf(hp));                        // Set text field strings
             levelField.setText(String.valueOf(level));
             originField.setText(origin);
             roleField.setText(role);
@@ -770,7 +771,7 @@ public class Main extends Application {
             diceTemp = diceSetter(temp);
             brawField.setText(diceTemp);
             temp = strengthStats[2];
-            if (temp == 0) {
+            if (temp == 0) {                                            // Set Conditioning stat separate, since it doesn't use dice
                 diceTemp = "N/A";
             }
             else {
@@ -844,39 +845,41 @@ public class Main extends Application {
             diceTemp = diceSetter(temp);
             streField.setText(diceTemp);
 
-            NPCid++;
-            currentBot++;
-            xOfX = String.format("%d of %d", currentBot, totalBot);
-            currentLabel.setText(xOfX);
-            if (NPCLinkedList.atEnd()) {
+            NPCid++;                                                    // Increase the NPCid
+            currentBot++;                                               // Increase the currentBot for the current Label
+            xOfX = String.format("%d of %d", currentBot, totalBot);     // Set String for the current Label
+            currentLabel.setText(xOfX);                                 // Display new bot number
+            if (NPCLinkedList.atEnd()) {                                // If the Linked List is at the end, disable the next button
                 next.setDisable(true);
             }
-            previous.setDisable(false);
+            previous.setDisable(false);                                 // Enable the previous button
         }
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     class PreviousClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
+            // Declare variables
             int temp;
             String diceTemp;
-            NPCid--;
-            newNPC = new NPC();
-            NPCLinkedList.resetList();
-            for (int j = 0; j < NPCid; j++){
+            
+            NPCid--;                                                    // Decrease NPCid
+            newNPC = new NPC();                                         // Create an empty NPC instance
+            NPCLinkedList.resetList();                                  // Reset Linked List to the beginning
+            for (int j = 0; j < NPCid; j++){                            // Cycle through the Linked List until you get to the NPCid value
                 NPCLinkedList.getNextItem();
             }
-            newNPC = NPCLinkedList.getNextItem();
-            String origin = newNPC.getOrigin();
+            newNPC = NPCLinkedList.getNextItem();                       // Copy NPC from current location in the Linked List
+            String origin = newNPC.getOrigin();                         // Set Characteristics, HP, and Level
             String role = newNPC.getRole();
             String subRole = newNPC.getSubRole();
-            int[] strengthStats = newNPC.getStrength();
+            int hp = newNPC.getHP();
+            int level = newNPC.getLevel();
+            int[] strengthStats = newNPC.getStrength();                 // Set array values
             int[] speedStats = newNPC.getSpeed();
             int[] smartsStats = newNPC.getSmarts();
             int[] socialStats = newNPC.getSocial();
-            int hp = newNPC.getHP();
-            int level = newNPC.getLevel();
-            hpField.setText(String.valueOf(hp));
+            hpField.setText(String.valueOf(hp));                        // Set text field strings
             levelField.setText(String.valueOf(level));
             originField.setText(origin);
             roleField.setText(role);
@@ -892,7 +895,7 @@ public class Main extends Application {
             diceTemp = diceSetter(temp);
             brawField.setText(diceTemp);
             temp = strengthStats[2];
-            if (temp == 0) {
+            if (temp == 0) {                                           // Set Conditioning text field
                 diceTemp = "N/A";
             }
             else {
@@ -965,13 +968,14 @@ public class Main extends Application {
             temp = socialStats[4];
             diceTemp = diceSetter(temp);
             streField.setText(diceTemp);
-            currentBot--;
-            xOfX = String.format("%d of %d", currentBot, totalBot);
-            currentLabel.setText(xOfX);
-            if (NPCid == 0) {
+            
+            currentBot--;                                              // Decrease currentBot
+            xOfX = String.format("%d of %d", currentBot, totalBot);    // Set string for currentLabel
+            currentLabel.setText(xOfX);                                // Display xOfX String in currentLabel
+            if (NPCid == 0) {                                          // Disable the previous button if NPCid equals 0
                 previous.setDisable(true);
             }
-            next.setDisable(false);
+            next.setDisable(false);                                    // Enable next button
         }
     }
 
@@ -979,6 +983,7 @@ public class Main extends Application {
     class ClearClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
+            // Execute clearList method
             clearList();
         }
     }
@@ -986,7 +991,9 @@ public class Main extends Application {
     class WriteToFileClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent clicked) {
+            // Try-catch in case the file doesn't exist
             try {
+                // Declare variables and arrays
                 String tempString, inputString, writeOrigin, writeRole, writeSubRole, writeAth, writeBraw, writeAcro,
                         writeDriv, writeFin, writeInf, writeInit, writeTarg, writeAlert, writeCul, writeSci, writeSur,
                         writeTech, writeCond, writeInt, writeMig, writeAniHand, writeDec, writePerf, writePers,
@@ -995,39 +1002,39 @@ public class Main extends Application {
                 int queueTotal = 0, writeHP, writeLevel, statTemp, writeStrengthStat, writeSpeedStat,
                         writeSmartsStat, writeSocialStat, writeToughness, writeEvasion,
                         writeWillpower, writeCleverness;
-                NPCQueue<String> writeQueue = new NPCQueue<String>();
-                // Open file and declare Scanner
-                File file = new File("GeneratedNPCs.txt");
-                if (file.exists()) {
-                    Scanner scnr = new Scanner(file);
-                    int readIn = 0;
-                    // Loop through txt file and save to county arrays
-                    while (scnr.hasNext()) {
-                        tempString = scnr.nextLine();
-                        writeQueue.enqueue(tempString);
-                        readIn++;
+                
+                NPCQueue<String> writeQueue = new NPCQueue<String>();            // Create a Queue                
+                File file = new File("GeneratedNPCs.txt");                       // Create File instance using GeneratedNPCs.txt file
+                if (file.exists()) {                                             // Verify if the file exists
+                    Scanner scnr = new Scanner(file);                            // Create Scanner instance using the file
+                    int readIn = 0;                                              // Create a variable to track how many NPCs were read in
+                    
+                    while (scnr.hasNext()) {                                     // Loop through txt file until out of lines to read
+                        tempString = scnr.nextLine();                            // Set a temp String with the next line in the file
+                        writeQueue.enqueue(tempString);                          // Add the tempString to the queue
+                        readIn++;                                                // Increase readIn
                     }
-                    queueTotal += readIn;
+                    queueTotal += readIn;                                        // Once the loop is complete, add the readIn value to the queueTotal.
                 }
 
-                NPCLinkedList.resetList();
+                NPCLinkedList.resetList();                                       // Reset the Linked List
 
-                while (!NPCLinkedList.atEnd()) {
-                    NPC StringNPC = new NPC();
-                    StringNPC = NPCLinkedList.getNextItem();
-                    writeOrigin = StringNPC.getOrigin();
+                while (!NPCLinkedList.atEnd()) {                                 // Loop until the Linked List is at the end
+                    NPC StringNPC = new NPC();                                   // Create and empty NPC instance
+                    StringNPC = NPCLinkedList.getNextItem();                     // Copy the current Linked List NPC to the empty instance
+                    writeOrigin = StringNPC.getOrigin();                         // Copy values from NPC instance to variables
                     writeRole = StringNPC.getRole();
                     writeSubRole = StringNPC.getSubRole();
                     writeHP = StringNPC.getHP();
                     writeLevel = StringNPC.getLevel();
-                    writeStrength = StringNPC.getStrength();
+                    writeStrength = StringNPC.getStrength();                     // Copy values from NPC instance to arrays
                     writeSpeed = StringNPC.getSpeed();
                     writeSmarts = StringNPC.getSmarts();
                     writeSocial = StringNPC.getSocial();
-                    
+                    // Set Strength value by adding the strength array values
                     writeStrengthStat = writeStrength[0] + writeStrength[1] + writeStrength[2] + writeStrength[3] + writeStrength[4];
-                    writeToughness = writeStrengthStat + 10;
-                    statTemp = writeStrength[0];
+                    writeToughness = writeStrengthStat + 10;                    // Set Toughness to Strength plus 10
+                    statTemp = writeStrength[0];                                // Set dice values for Strength skills
                     if (statTemp == 0) {
                         writeAth = "N/A";
                     }
@@ -1041,7 +1048,7 @@ public class Main extends Application {
                     else {
                         writeBraw = diceSetter(statTemp);
                     }
-                    writeCond = "+" + writeStrength[2] + "HP";
+                    writeCond = "+" + writeStrength[2] + " HP";
                     statTemp = writeStrength[3];
                     if (statTemp == 0) {
                         writeInt = "N/A";
@@ -1056,9 +1063,10 @@ public class Main extends Application {
                     else {
                         writeMig = diceSetter(statTemp);
                     }
+                    // Set Speed value by adding the speed array values
                     writeSpeedStat = writeSpeed[0] + writeSpeed[1] + writeSpeed[2] + writeSpeed[3] + writeSpeed[4] + writeSpeed[5];
-                    writeEvasion = writeSpeedStat + 10;
-                    statTemp = writeSpeed[0];
+                    writeEvasion = writeSpeedStat + 10;                          // Set Evasion to Speed plus 10
+                    statTemp = writeSpeed[0];                                    // Set dice values for Speed skills
                     if (statTemp == 0) {
                         writeAcro = "N/A";
                     }
@@ -1100,9 +1108,10 @@ public class Main extends Application {
                     else {
                         writeTarg = diceSetter(statTemp);
                     }
+                    // Set Smarts value by adding the smarts array values
                     writeSmartsStat = writeSmarts[0] + writeSmarts[1] + writeSmarts[2] + writeSmarts[3] + writeSmarts[4];
-                    writeWillpower = writeSmartsStat + 10;
-                    statTemp = writeSmarts[0];
+                    writeWillpower = writeSmartsStat + 10;                       // Set Willpower to Smarts plus 10
+                    statTemp = writeSmarts[0];                                   // Set dice values for Smarts skills
                     if (statTemp == 0) {
                         writeAlert = "N/A";
                     }
@@ -1137,9 +1146,10 @@ public class Main extends Application {
                     else {
                         writeTech = diceSetter(statTemp);
                     }
+                    // Set Social value by adding the social array values
                     writeSocialStat = writeSocial[0] + writeSocial[1] + writeSocial[2] + writeSocial[3] + writeSocial[4];
-                    writeCleverness = writeSocialStat + 10;
-                    statTemp = writeSocial[0];
+                    writeCleverness = writeSocialStat + 10;                      // Set Cleverness to social plus 10
+                    statTemp = writeSocial[0];                                   // Set dice values for Social skill
                     if (statTemp == 0) {
                         writeAniHand = "N/A";
                     }
@@ -1174,6 +1184,7 @@ public class Main extends Application {
                     else {
                         writeStre = diceSetter(statTemp);
                     }
+                    // Set String to write to file
                     inputString = String.format("\nOrigin: %s, Role: %s, SubRole: %s, HP: %s, Level: %s\nStrength: %d, " +
                                     "Toughness: %d, Athletics: %s, Brawn: %s, Conditioning: %s, Intimidation: %s, " +
                                     "Might: %s\nSpeed: %d, Evasion: %d, Acrobatics: %s, Driving: %S, Finesse: %s, " +
@@ -1186,23 +1197,23 @@ public class Main extends Application {
                             writeInit, writeTarg, writeSmartsStat, writeWillpower, writeAlert, writeCul, writeSci,
                             writeSur, writeTech, writeSocialStat, writeCleverness, writeAniHand, writeDec, writePerf,
                             writePers, writeStre);
-                    writeQueue.enqueue(inputString);
-                    queueTotal++;
+                    writeQueue.enqueue(inputString);                             // Add string to queue
+                    queueTotal++;                                                // Increase queueTotal
                 }
 
-                PrintWriter writeFile = new PrintWriter("GeneratedNPCs.txt");
-                for (int i = 0; i < queueTotal; i++)
-                {   // Write to the file in the same format the data was read in.
-                    while (!writeQueue.isEmpty()) {
-                        tempString = writeQueue.dequeue();
-                        writeFile.println(tempString);
+                PrintWriter writeFile = new PrintWriter("GeneratedNPCs.txt");    // Create a PrintWriter instance to write the data to file
+                for (int i = 0; i < queueTotal; i++)                             // Loop for quantity in queue
+                {   
+                    while (!writeQueue.isEmpty()) {                              // Loop until the queue is empty
+                        tempString = writeQueue.dequeue();                       // Enqueue to a tempstring
+                        writeFile.println(tempString);                           // Write tempstring to file
                     }
                 }
-                writeFile.close();
+                writeFile.close();                                               // Close file
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            clearList();
+            clearList();                                                         // Execute the clearList method
         }
     }
 }
