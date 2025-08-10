@@ -37,16 +37,22 @@
 }
 .GenerateNPCs{
     -fx-background-color: linear-gradient(#800080, #FF0000);
+    -fx-font-color: white;
 }
 .next{
     -fx-background-color: linear-gradient(#800080, #FF0000);
+    -fx-font-color: white;
 }
 .previous{
     -fx-background-color: linear-gradient(#800080, #FF0000);
+    -fx-font-color: white;
 }
 .clear{
     -fx-background-color: linear-gradient(#800080, #FF0000);
+    -fx-font-color: white;
 }
 .writeToFile{
     -fx-background-color: linear-gradient(#800080, #FF0000);
+    -fx-font-color: white;
 }
+
