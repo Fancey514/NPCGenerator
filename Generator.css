@@ -1,6 +1,37 @@
-.root{
+.TotalVB{
     -fx-background-image: url("logo.png");
     -fx-background-repeat: stretch;
     -fx-background-size:700 700;
     -fx-background-position: center center;
+}
+.radioHB{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+
+}
+.topInfo{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
+.streEssBox{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
+.speEssBox{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
+.smaEssBox{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
+.socEssBox{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
 }
