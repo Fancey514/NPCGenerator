@@ -446,7 +446,7 @@ public class Main extends Application {
         TotalVB.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(TotalVB, 700, 700);                               // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
-        scene.getStylesheets().addAll(this.getClass().getResource("Generator.css").toExternalForm());
+        scene.getStylesheets().addAll(this.getClass().getResource("Style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("NPC Generator");
         primaryStage.show();                                                      // Display the scene
