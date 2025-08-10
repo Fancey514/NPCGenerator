@@ -35,3 +35,18 @@
     -fx-border-width: 2px;
     -fx-border-style: solid;
 }
+.GenerateNPCs{
+    -fx-background-color: linear-gradient(#800080, #FF0000);
+}
+.next{
+    -fx-background-color: linear-gradient(#800080, #FF0000);
+}
+.previous{
+    -fx-background-color: linear-gradient(#800080, #FF0000);
+}
+.clear{
+    -fx-background-color: linear-gradient(#800080, #FF0000);
+}
+.writeToFile{
+    -fx-background-color: linear-gradient(#800080, #FF0000);
+}
