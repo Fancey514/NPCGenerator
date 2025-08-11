@@ -450,9 +450,9 @@ public class Main extends Application {
         TotalVB.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(TotalVB, 700, 700);                               // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
-        scene.getStylesheets().add("Style.css");
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("NPC Generator");
+        scene.getStylesheets().add("Style.css");                                  // Incorporate CSS
+        primaryStage.setScene(scene);                                             // Set the scene as the primary stage
+        primaryStage.setTitle("NPC Generator");                                   // Set a title
         primaryStage.show();                                                      // Display the scene
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
