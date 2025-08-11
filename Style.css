@@ -1,58 +1,22 @@
-.TotalVB{
-    -fx-background-image: url("logo.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size:700 700;
-    -fx-background-position: center center;
+.root{
+    -fx-background-image: url("\Projects\TFRPG%20NPC%20Generator\src/background.png");
+        -fx-background-repeat: stretch;
+        -fx-background-size:700 700;
+        -fx-background-position: center center;
 }
-.radioHB{
-    -fx-border-color: black;
-    -fx-border-width: 2px;
+#box_style{
+    -fx-border-color: gray;
     -fx-border-style: solid;
-
+    -fx-border-inset: 1 1;
+    -fx-padding: 2;
 }
-.topInfo{
-    -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-border-style: solid;
+.button{
+    -fx-background-color: #800080;
+    -fx-text-fill: white;
 }
-.streEssBox{
-    -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-border-style: solid;
+.label{
+    -fx-text-fill: white;
 }
-.speEssBox{
-    -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-border-style: solid;
+.radio-button{
+    -fx-text-fill: white;
 }
-.smaEssBox{
-    -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-border-style: solid;
-}
-.socEssBox{
-    -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-border-style: solid;
-}
-.GenerateNPCs{
-    -fx-background-color: linear-gradient(#800080, #FF0000);
-    -fx-font-color: white;
-}
-.next{
-    -fx-background-color: linear-gradient(#800080, #FF0000);
-    -fx-font-color: white;
-}
-.previous{
-    -fx-background-color: linear-gradient(#800080, #FF0000);
-    -fx-font-color: white;
-}
-.clear{
-    -fx-background-color: linear-gradient(#800080, #FF0000);
-    -fx-font-color: white;
-}
-.writeToFile{
-    -fx-background-color: linear-gradient(#800080, #FF0000);
-    -fx-font-color: white;
-}
-
