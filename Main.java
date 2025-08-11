@@ -155,11 +155,12 @@ public class Main extends Application {
         subRoleField = new TextField();
         subRoleField.setEditable(false);
         VBox subRoleBox = new VBox(10, subRoleLabel, subRoleField);
-        roleBox.setAlignment(Pos.CENTER);
+        subRoleBox.setAlignment(Pos.CENTER);
 
         // HP, Level, Origin, Role, and Sub-Role HBox
         HBox topInfo = new HBox(25, hpBox, levelBox, originBox, roleBox, subRoleBox);
         topInfo.setAlignment(Pos.CENTER);
+        topInfo.setId("box_style");
 
         // Strength Stat
         strengthLabel = new Label("Strength");
@@ -222,6 +223,7 @@ public class Main extends Application {
         // Strength Stats VBox
         VBox streEssBox = new VBox(10, strengthBox, toughBox, athleticsBox, brawnBox, condBox, intimidationBox, mightBox);
         streEssBox.setAlignment(Pos.TOP_CENTER);
+        streEssBox.setId("box_style");
 
         // Speed Stat
         speedLabel = new Label("Speed");
@@ -292,6 +294,7 @@ public class Main extends Application {
         // Speed Stats VBox
         VBox speEssBox = new VBox(10, speedBox, evadeBox, acrobaticsBox, drivingBox, finesseBox, infiltrationBox, initiativeBox, targetingBox);
         speEssBox.setAlignment(Pos.TOP_CENTER);
+        speEssBox.setId("box_style");
 
         // Smarts Stat
         smartsLabel = new Label("Smarts");
@@ -354,6 +357,7 @@ public class Main extends Application {
         // Smarts Stats VBox
         VBox smaEssBox = new VBox(10, smartsBox, willpowerBox, alertnessBox, cultureBox, scienceBox, survivalBox, technologyBox);
         smaEssBox.setAlignment(Pos.TOP_CENTER);
+        smaEssBox.setId("box_style");
 
         // Social Stat
         socialLabel = new Label("Social");
@@ -416,6 +420,7 @@ public class Main extends Application {
         // Social Stats VBox
         VBox socEssBox = new VBox(10, socialBox, clevernessBox, animalHandlingBox, deceptionBox, performanceBox, persuasionBox, streetwiseBox);
         socEssBox.setAlignment(Pos.TOP_CENTER);
+        socEssBox.setId("box_style");
 
         // Combined stats HBox
         HBox essenceBox = new HBox(50,streEssBox, speEssBox, smaEssBox, socEssBox);
@@ -445,7 +450,7 @@ public class Main extends Application {
         TotalVB.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(TotalVB, 700, 700);                               // Set the scene with the TotalVB VBox, a height of 700 ad a width of 700
-        scene.getStylesheets().addAll(this.getClass().getResource("Style.css").toExternalForm());
+        scene.getStylesheets().add("Style.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("NPC Generator");
         primaryStage.show();                                                      // Display the scene

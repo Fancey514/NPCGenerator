@@ -1,11 +1,11 @@
 .root{
-    -fx-background-image: url("\Projects\TFRPG%20NPC%20Generator\src/background.png");
-        -fx-background-repeat: stretch;
-        -fx-background-size:700 700;
-        -fx-background-position: center center;
+    -fx-background-image: url("backgroundImage.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size:700 700;
+    -fx-background-position: center center;
 }
 #box_style{
-    -fx-border-color: gray;
+    -fx-border-color: yellow;
     -fx-border-style: solid;
     -fx-border-inset: 1 1;
     -fx-padding: 2;
