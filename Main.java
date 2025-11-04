@@ -7,13 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Main extends Application {
 
@@ -555,6 +553,7 @@ public class Main extends Application {
             tooHigh.setContentText("Entered values must be lower than 21");
             try {
                 NPCid = 0;
+                previous.setDisable(true);
                 if (setQuantity.isSelected()) {
                     quantity = Integer.parseInt(quantityField.getText());                                                           // Set quantity to user-entered value if set quantity is selected
                     if (quantity < 1) {
